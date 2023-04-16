@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A345CB5-A9F6-469A-8E15-E4CCCD3D5BE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChatGptCommitMessageGeneratorTests</RootNamespace>
+    <AssemblyName>ChatGptCommitMessageGeneratorTests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LibGit2Sharp">
+      <Version>0.26.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Moq">
+      <Version>4.18.4</Version>
+    </PackageReference>
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GenerateMessageHelperTests.cs" />
+    <Compile Include="GitDiffHelperTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatGptCommitMessageGenerator\ChatGptCommitMessageGenerator.csproj">
+      <Project>{DB32E561-B732-46E6-BF7D-5B008C6070EF}</Project>
+      <Name>ChatGptCommitMessageGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestObjects\test.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestObjects\.git\COMMIT_EDITMSG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestObjects\.git\config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestObjects\.git\description">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestObjects\.git\HEAD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestObjects\.git\hooks\applypatch-msg.sample" />
+    <None Include="TestObjects\.git\hooks\commit-msg.sample" />
+    <None Include="TestObjects\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="TestObjects\.git\hooks\post-update.sample" />
+    <None Include="TestObjects\.git\hooks\pre-applypatch.sample" />
+    <None Include="TestObjects\.git\hooks\pre-commit.sample" />
+    <None Include="TestObjects\.git\hooks\pre-merge-commit.sample" />
+    <None Include="TestObjects\.git\hooks\pre-push.sample" />
+    <None Include="TestObjects\.git\hooks\pre-rebase.sample" />
+    <None Include="TestObjects\.git\hooks\pre-receive.sample" />
+    <None Include="TestObjects\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="TestObjects\.git\hooks\push-to-checkout.sample" />
+    <None Include="TestObjects\.git\hooks\update.sample" />
+    <None Include="TestObjects\.git\index">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestObjects\.git\info\exclude" />
+    <None Include="TestObjects\.git\logs\HEAD" />
+    <None Include="TestObjects\.git\logs\refs\heads\master" />
+    <None Include="TestObjects\.git\objects\0a\eef9e7cd4167bbc4f844f6508a2fafdeb6b5f4" />
+    <None Include="TestObjects\.git\objects\35\a876e51f4d611704ba174b04e3249c972ba284" />
+    <None Include="TestObjects\.git\objects\59\0254a8a457bf3a226b3c86962758a085b61c1c" />
+    <None Include="TestObjects\.git\objects\70\9fe7da5f3413a8fdd35c037830d205b06fae5c" />
+    <None Include="TestObjects\.git\refs\heads\master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestObjects\.git\objects\info\" />
+    <Folder Include="TestObjects\.git\objects\pack\" />
+    <Folder Include="TestObjects\.git\refs\tags\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

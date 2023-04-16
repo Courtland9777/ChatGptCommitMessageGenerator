@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidChatGptCommitMessageGeneratorPackage">
+	  <Menus>
+	    <Menu guid="guidChatGptCommitMessageGeneratorPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+		    <Parent guid="guidSHLMainMenu"
+		            id="IDG_VS_MM_TOOLSADDINS" />
+		    <Strings>
+			    <ButtonText>Commit Message Generator</ButtonText>
+		    </Strings>
+	    </Menu>
+    </Menus>
+    <Groups>
+      <Group guid="guidChatGptCommitMessageGeneratorPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidChatGptCommitMessageGeneratorPackageCmdSet" id="TopLevelMenu"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+	    <Button guid="guidChatGptCommitMessageGeneratorPackageCmdSet" id="GenerateMessageCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidChatGptCommitMessageGeneratorPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="OIG16x16" />
+        <Strings>
+          <ButtonText>Create Commit Message</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+	    <Bitmap guid="guidImages" href="Resources\OIG16x16.png" />
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidChatGptCommitMessageGeneratorPackage" value="{d8e4b240-c322-4352-a821-a9bd396da863}" />
+
+    <GuidSymbol name="guidChatGptCommitMessageGeneratorPackageCmdSet" value="{d0b258db-0f38-436f-93ca-e462bf2bd67c}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="TopLevelMenu" value="0x1021" />
+      <IDSymbol name="GenerateMessageCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{9c75bfd7-5650-45de-a76f-7bc36e3d271e}" >
+      <IDSymbol name="OIG16x16" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
