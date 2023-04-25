@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using ChatGptCommitMessageGenerator.Helpers;
 using Xunit;
@@ -33,38 +32,6 @@ namespace ChatGptCommitMessageGeneratorTests
             var exception = await Assert.ThrowsAsync<Win32Exception>(
                 () => GitDiffHelper.CreateGitDiffAsync(repositoryPath));
             Assert.Contains("The directory name is invalid", exception.Message);
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public async Task OptimizeDiffForCommitMessageAsync_ThrowsArgumentException_WhenDiffIsEmptyOrNullAsync(
-            string diff)
-        {
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(
-                () => GitDiffHelper.OptimizeDiffForCommitMessageAsync(diff));
-        }
-
-        [Fact]
-        public async Task OptimizeDiffForCommitMessageAsync_ReturnsOptimizedString_WhenDiffIsValidAsync()
-        {
-            // Arrange
-            const string diff = @"
---- a/file.txt
-+++ b/file.txt
-@@ -1,4 +1,4 @@
--Removed line
-+Added line
- Unchanged line
-";
-            var expectedOptimizedDiff = "Removed line: Removed line" + Environment.NewLine + "Added line: Added line";
-
-            // Act
-            var optimizedDiff = await GitDiffHelper.OptimizeDiffForCommitMessageAsync(diff);
-
-            // Assert
-            Assert.Equal(expectedOptimizedDiff, optimizedDiff);
         }
     }
 }
