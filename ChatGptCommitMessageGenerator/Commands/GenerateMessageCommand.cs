@@ -1,42 +1,44 @@
 ﻿using System;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ChatGptCommitMessageGenerator.Abstractions;
-using ChatGptCommitMessageGenerator.Services;
-using ChatGptCommitMessageGenerator.TokenManagement;
 using Community.VisualStudio.Toolkit;
+using Community.VisualStudio.Toolkit.DependencyInjection;
+using Community.VisualStudio.Toolkit.DependencyInjection.Core;
 using Microsoft.VisualStudio.Shell;
 using static ChatGptCommitMessageGenerator.Services.OutputManager;
 
 namespace ChatGptCommitMessageGenerator.Commands
 {
-    [Command(" d0b258db-0f38-436f-93ca-e462bf2bd67c", 0x0100)]
-    internal sealed class GenerateMessageCommand : BaseCommand<GenerateMessageCommand>
+    [Command(CommandGuid, CommandId)]
+    internal sealed class GenerateMessageCommand : BaseDICommand
     {
+        private const string CommandGuid = "d0b258db-0f38-436f-93ca-e462bf2bd67c";
+        private const int CommandId = 0x0100;
+
         private readonly ITokenManager _deepDev;
         private readonly IGitCommitMessageGenerator _gitCommitMessageGenerator;
         private readonly IGitDiffParser _gitDiffParser;
         private readonly IGitDiffProvider _gitDiffProvider;
-        private readonly HttpClient _httpClient;
 
-        public GenerateMessageCommand()
+        public GenerateMessageCommand(
+            DIToolkitPackage package,
+            ITokenManager tokenManager,
+            IGitCommitMessageGenerator gitCommitMessageGenerator,
+            IGitDiffParser gitDiffParser,
+            IGitDiffProvider gitDiffProvider)
+            : base(package)
         {
-            _httpClient = new HttpClient();
-            _deepDev = new DeepDevTokenManager();
-            IGptApiClient gptApiClient = new GptApiClient(_httpClient);
-            _gitCommitMessageGenerator = new GitCommitMessageGenerator(gptApiClient);
-            _gitDiffProvider = new GitDiffProvider();
-            _gitDiffParser = new GitDiffParser();
+            _deepDev = tokenManager;
+            _gitCommitMessageGenerator = gitCommitMessageGenerator;
+            _gitDiffParser = gitDiffParser;
+            _gitDiffProvider = gitDiffProvider;
         }
 
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {
             try
             {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
                 var solution = await VS.Solutions.GetCurrentSolutionAsync() ??
                                throw new InvalidOperationException("No solution is open");
                 var workingDirectory = Path.GetDirectoryName($"{solution?.FullPath}");
