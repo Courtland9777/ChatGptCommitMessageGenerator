@@ -1,4 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using ChatGptCommitMessageGenerator.Abstractions;
 using ChatGptCommitMessageGenerator.Commands;
 using ChatGptCommitMessageGenerator.Services;
@@ -21,7 +24,14 @@ namespace ChatGptCommitMessageGenerator
         {
             services.AddSingleton<ITokenManager, DeepDevTokenManager>();
             services.AddSingleton<IGptApiClient, GptApiClient>();
-            services.AddSingleton<IGitCommitMessageGenerator, GitCommitMessageGenerator>();
+            services.AddSingleton<IGitCommitMessageGenerator>(serviceProvider =>
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
+                var gptApiClient = new GptApiClient(httpClient);
+                return new GitCommitMessageGenerator(gptApiClient);
+            });
             services.AddSingleton<IGitDiffParser, GitDiffParser>();
             services.AddSingleton<IGitDiffProvider, GitDiffProvider>();
 

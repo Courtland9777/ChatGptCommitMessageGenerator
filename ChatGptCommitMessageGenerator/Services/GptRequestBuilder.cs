@@ -38,7 +38,7 @@ namespace ChatGptCommitMessageGenerator.Services
             const string systemMessage =
                 "You are a helpful assistant that can summarize git diffs and suggest commit messages.";
             const string userMessage =
-                "In one sentence, create a concise and informative commit message that summarizes the following diff:\n{0}\nCommit message:";
+                "In up to two sentences, create a concise and informative commit message that summarizes the following diff:\n{0}\nCommit message:";
 
             return CreateRequest(gitDiff, systemMessage, userMessage);
         }

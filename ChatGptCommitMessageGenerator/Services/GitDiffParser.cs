@@ -19,8 +19,9 @@ namespace ChatGptCommitMessageGenerator.Services
                 var matches = DiffRegexPattern.Matches(gitDiff).Cast<Match>();
 
                 var changes = matches.Select(match => new { match, startIndex = match.Index })
-                    .Select(t => new { t, endIndex = t.match.NextMatch().Index })
-                    .Select(t => gitDiff.Substring(t.t.startIndex, t.endIndex - t.t.startIndex)).ToList();
+                    .Select(t => new { t, length = t.match.Length })
+                    .Select(t => gitDiff.Substring(t.t.startIndex, t.length)).ToList();
+
 
                 return changes.Count == 0 ? new List<string>() : changes;
             }).ConfigureAwait(false);
