@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceTests\GitDiffParserTests.cs" />
+    <Compile Include="ServiceTests\GitDiffProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatGptCommitMessageGenerator\ChatGptCommitMessageGenerator.csproj">
