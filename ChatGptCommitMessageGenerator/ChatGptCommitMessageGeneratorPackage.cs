@@ -33,7 +33,12 @@ namespace ChatGptCommitMessageGenerator
                 return new GitCommitMessageGenerator(gptApiClient);
             });
             services.AddSingleton<IGitDiffParser, GitDiffParser>();
-            services.AddSingleton<IGitDiffProvider, GitDiffProvider>();
+            services.AddSingleton<IGitDiffProvider>(serviceProvider =>
+            {
+                var processExecutor = new ProcessExecutor();
+                return new GitDiffProvider(processExecutor);
+            });
+
 
             services.AddSingleton<GenerateMessageCommand>();
         }
