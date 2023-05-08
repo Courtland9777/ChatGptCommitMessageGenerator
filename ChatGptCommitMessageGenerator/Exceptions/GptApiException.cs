@@ -3,7 +3,7 @@ using System.Net;
 
 namespace ChatGptCommitMessageGenerator.Exceptions
 {
-    internal sealed class GptApiException : Exception
+    public sealed class GptApiException : Exception
     {
         public GptApiException(HttpStatusCode statusCode)
             : base($"API call resulted in an error: {statusCode}") =>

@@ -52,6 +52,7 @@
     <Compile Include="Abstractions\IGitDiffParser.cs" />
     <Compile Include="Abstractions\IGptApiClient.cs" />
     <Compile Include="Abstractions\IMessageBoxDisplayService.cs" />
+    <Compile Include="Abstractions\IOutputHandler.cs" />
     <Compile Include="Abstractions\IOutputWindowService.cs" />
     <Compile Include="Abstractions\IProcessExecutor.cs" />
     <Compile Include="Abstractions\ITokenManager.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Prompts\Prompts.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\GptApiException.cs" />
+    <Compile Include="Services\DefaultOutputHandler.cs" />
     <Compile Include="Services\GitCommitMessageGenerator.cs" />
     <Compile Include="Services\GitDiffParser.cs" />
     <Compile Include="Services\GitDiffProvider.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,8 @@ namespace ChatGptCommitMessageGenerator.Services
 
             await EnsureSuccessAsync(httpResponseMessage).ConfigureAwait(false);
 
+            if (httpResponseMessage == null) throw new NullReferenceException();
+
             var responseString = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             var response = JsonConvert.DeserializeObject<Response>(responseString);
             return response;
@@ -53,6 +56,9 @@ namespace ChatGptCommitMessageGenerator.Services
         {
             if (!httpResponseMessage.IsSuccessStatusCode)
             {
+                if (httpResponseMessage.Content == null)
+                    throw new GptApiException(httpResponseMessage.StatusCode,
+                        $"Error: {httpResponseMessage.StatusCode}");
                 var errorMessage = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
                 throw new GptApiException(httpResponseMessage.StatusCode,
                     $"Error: {httpResponseMessage.StatusCode} - {httpResponseMessage.ReasonPhrase}\n{errorMessage}");

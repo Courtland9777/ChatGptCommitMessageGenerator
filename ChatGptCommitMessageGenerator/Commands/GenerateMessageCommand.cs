@@ -60,6 +60,7 @@ namespace ChatGptCommitMessageGenerator.Commands
             }
             catch (Exception ex)
             {
+                await ex.LogAsync();
                 await ThreadHelper.JoinableTaskFactory.RunAsync(async delegate
                 {
                     await WriteErrorToOutputWindowAsync(ex);

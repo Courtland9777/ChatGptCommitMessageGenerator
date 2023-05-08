@@ -35,7 +35,7 @@ namespace ChatGptCommitMessageGenerator
             services.AddSingleton<IGitDiffParser, GitDiffParser>();
             services.AddSingleton<IGitDiffProvider>(serviceProvider =>
             {
-                var processExecutor = new ProcessExecutor();
+                var processExecutor = new ProcessExecutor(new DefaultOutputHandler());
                 return new GitDiffProvider(processExecutor);
             });
 
