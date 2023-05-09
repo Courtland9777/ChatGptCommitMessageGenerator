@@ -61,6 +61,7 @@
     <Compile Include="ServiceTests\GitDiffParserTests.cs" />
     <Compile Include="ServiceTests\GitDiffProviderTests.cs" />
     <Compile Include="ServiceTests\GptApiClientTests.cs" />
+    <Compile Include="ServiceTests\GptRequestBuilderTests.cs" />
     <Compile Include="ServiceTests\ProcessExecutorTestCollection.cs" />
     <Compile Include="ServiceTests\ProcessExecutorTests.cs" />
   </ItemGroup>
