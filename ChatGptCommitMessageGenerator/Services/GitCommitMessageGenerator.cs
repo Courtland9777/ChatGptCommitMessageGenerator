@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace ChatGptCommitMessageGenerator.Services
 
         public async Task<string> GetResponseMessageAsync(List<GitChange> gitChanges)
         {
+            if (gitChanges == null) throw new ArgumentNullException(nameof(gitChanges));
+            if (gitChanges.Count == 0) return string.Empty;
             if (gitChanges.All(c => c.GroupNumber == 0))
                 return await PostGitChangesToChatGptAsync(
                     string.Join(string.Empty, gitChanges.Select(c => c.Change)),

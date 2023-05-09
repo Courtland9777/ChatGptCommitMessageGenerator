@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceTests\DefaultOutputHandlerTests.cs" />
+    <Compile Include="ServiceTests\GitCommitMessageGeneratorTests.cs" />
     <Compile Include="ServiceTests\GitDiffParserTests.cs" />
     <Compile Include="ServiceTests\GitDiffProviderTests.cs" />
     <Compile Include="ServiceTests\GptApiClientTests.cs" />
